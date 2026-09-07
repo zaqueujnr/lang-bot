@@ -1,6 +1,9 @@
-def main():
-    print("Hello from lang!")
+from fastapi import FastAPI
+from api.routers.waha_webhook_router import router
 
+from graph.graph import build_graph
 
-if __name__ == "__main__":
-    main()
+app = FastAPI()
+app.state.graph = build_graph()
+
+app.include_router(router)
