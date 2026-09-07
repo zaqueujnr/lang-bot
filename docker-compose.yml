@@ -1,0 +1,27 @@
+services:
+
+  waha:
+    image: devlikeapro/waha
+    container_name: waha
+    restart: unless-stopped
+
+    volumes:
+      - waha_data:/app/.sessions
+
+    environment:
+      WAHA_API_KEY: ${WAHA_API_KEY}
+      WHATSAPP_HOOK_URL: http://api:8000/webhook
+      WHATSAPP_HOOK_EVENTS: message
+
+  api:
+    container_name: api
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    env_file:
+      - .env
+
+volumes:
+  waha_data:

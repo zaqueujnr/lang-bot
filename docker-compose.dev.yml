@@ -1,0 +1,15 @@
+services:
+
+  waha:
+    ports:
+      - "3000:3000"
+
+  api:
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/workspace
+
+    command:
+      uv run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
