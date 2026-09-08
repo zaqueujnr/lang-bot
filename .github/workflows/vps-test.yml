@@ -21,11 +21,16 @@ jobs:
             echo "Servidor: $(hostname)"
             echo "Usuário: $(whoami)"
 
-            cd ../opt/lang
+            cd /opt/lang
 
-            echo "Atualizando código..."
             git pull origin main
 
+            echo "Atualizando código..."
+            docker compose \
+              -f docker-compose.yml \
+              -f docker-compose.prod.yml \
+              up -d --build api
+              
             echo "Código atualizado!"
 
             docker --version
