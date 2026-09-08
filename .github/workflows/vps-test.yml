@@ -1,21 +1,31 @@
-name: Test VPS
+name: Deploy VPS
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Testar conexão SSH
+      - name: Atualizar VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "SSH funcionando!"
+            echo "Conectado na VPS"
             echo "Servidor: $(hostname)"
             echo "Usuário: $(whoami)"
+
+            cd ../opt/lang
+
+            echo "Atualizando código..."
+            git pull origin main
+
+            echo "Código atualizado!"
+
             docker --version
