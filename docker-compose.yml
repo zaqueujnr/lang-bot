@@ -11,6 +11,7 @@ services:
     environment:
       WAHA_API_KEY: ${WAHA_API_KEY}
       WHATSAPP_HOOK_URL: http://api:8000/webhook
+      WAHA_URL: http://waha:3000
       WHATSAPP_HOOK_EVENTS: message
 
   api:
